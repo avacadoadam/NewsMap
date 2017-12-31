@@ -2,7 +2,7 @@ function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 0, lng: 0},
         zoom: 2,
-        styles:[
+        styles: [
             {
                 "featureType": "all",
                 "elementType": "labels.text.fill",
@@ -172,7 +172,6 @@ function initMap() {
 
     });
 
-
     //Function to add marker and info on click
     function AddMarker(NewWatch){
         var marker = new google.maps.Marker({
@@ -191,24 +190,31 @@ function initMap() {
         marker.addListener('click',function () {
             infoWindow.open(map,marker);
         })
+
+    }
+    function LoopThroughData () {
+        console.log("LoopThroughDataCalled");
+        console.log(NewsData);
+        for(var i =0;i<NewsData.locAggr.results.length;i++){
+            console.log(NewsData.locAggr.results[0].concept.location.lat);
+            NewPoint = {
+                Coord :{
+                    lat:NewsData.locAggr.results[i].concept.location.lat,
+                    lng:NewsData.locAggr.results[i].concept.location.long
+                },
+                icon:"https://icon-icons.com/icons2/510/PNG/128/ios7-location_icon-icons.com_50241.png"
+
+            }
+            AddMarker(NewPoint);
+        }
+
+
     }
 
 
-    var json;
-    //Get JSON FILE AND PARSE INTO OBJECT CALLLED Responce
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            json = JSON.parse(xhttp.responseText);
-            //Loops through json
-            for(var i=0;i<json.length;i++){
-                AddMarker(json[i]);
-            }
-
-        }};
-    xhttp.open("GET", "Template.json", true);
-    xhttp.send();
-
+    LoopThroughData();
 
 
 }
+
+
