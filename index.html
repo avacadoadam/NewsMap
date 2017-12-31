@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>News Map</title>
+</head>
+<body>
+<style>
+     *{margin: 0px;padding: 0px;}
+    body, html {
+        height: 100%;
+        width: 100%;
+    }
+    #map{
+        height: 100%;
+        width: 100%;
+
+    }
+
+    #DropDown{
+        width: 300px;
+        height: 100px;
+        background-color: #92f442;
+        -webkit-box-shadow: 0px 0px 122px 23px rgba(146,244,66,1);
+        -moz-box-shadow: 0px 0px 122px 23px rgba(146,244,66,1);
+        box-shadow: 0px 0px 122px 23px rgba(146,244,66,1);
+        border-radius: 4px;
+        padding: 20px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin: auto;
+
+        margin: -70px 0 0 -170px;
+    }
+
+    .Select{
+        padding: 10px;
+        width: 60%;
+    }
+    .DropDownWrap{
+        display: flex;
+    }
+    .Button{
+        width: 40%;
+        padding: 10px;
+        text-align: center;
+        border-bottom: 1px black solid;
+        border-top: 1px black solid;
+        border-right: 1px black solid;
+        cursor: pointer;
+    }
+    #Catergory_Wrap{
+        display: none;
+    }
+
+
+</style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function () {
+
+        var $SelectValue;
+        //Defualt
+        $("#LauguageButton").html("next");
+
+        $("#LauguageButton").click(function () {
+            $("#Lauguage_Wrap").hide();
+            $("#Catergory_Wrap").show(400);
+            $("#Catergory_Wrap").css("display","flex");
+            $("#CatergoryButton").text($("#LauguageButton").html());
+            $("#DropDownHeader").text("Select the Catergory you wish");
+        });
+
+       // Start of lauguage select fucntion
+        $("#LauguageSelect").change(function () {
+            $SelectValue = $("#LauguageSelect option:selected").text();
+            $("#LauguageButton").html(LuaguageNexy($SelectValue))
+        })
+        //End Of Lauguage Select Function
+
+        function LuaguageNexy($SelectValueString) {
+            if($SelectValueString == "English"){
+                return "next";
+            }else if($SelectValueString == "Spanish"){
+               return "siguiente";
+            }else if($SelectValueString == "german"){
+                return "Nächster";
+            }else if($SelectValueString == "Russian"){
+                return "следующий";
+            }
+        }
+        return "next";
+
+
+    })
+
+    </script>
+
+
+
+<div id="DropDown">
+    <!--Laugauge Slide-->
+    <h2 id="DropDownHeader">What Lauguage Do you speak</h2>
+    <div id="Lauguage_Wrap" class="DropDownWrap">
+    <select id="LauguageSelect" class="Select">
+        <option value="English">English</option>
+        <option value="Spanish">Spanish</option>
+        <option value="german">German</option>
+        <option value="Russian">Russian</option>
+
+    </select>
+    <div id="LauguageButton" class="Button">
+    </div>
+    </div>
+        <!--End of lauguage slide-->
+    <div id="Catergory_Wrap" class="DropDownWrap">
+        <select id="CatergorySelect" class="Select">
+            <option value="Arts">Arts</option>
+            <option value="Buisness">Business</option>
+            <option value="Computers">Computers</option>
+            <option value="Games">Games</option>
+            <option value="Health">Health</option>
+            <option value="Home">Home</option>
+            <option value="Science">Science</option>
+            <option value="Sports">Sports</option>
+        </select>
+        <div id="CatergoryButton" class="Button" >
+
+    </div>
+
+
+    </div>
+
+
+</div>
+
+<!--<div id="map"></div>-->
+<!--<script src="LoadingMapPlusJSON.js"></script>-->
+<!--<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsJYUKDFEgIp_6bee0rfJVj29qfuSslXI&callback=initMap" type="text/javascript"></script>-->
+</body>
+</html>
