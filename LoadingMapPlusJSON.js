@@ -1,7 +1,9 @@
 function initMap() {
+    console.log("Loaded Now:Map init");
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 0, lng: 0},
         zoom: 2,
+        disableDefaultUI: true,
         styles: [
             {
                 "featureType": "all",
@@ -171,48 +173,45 @@ function initMap() {
         ]
 
     });
+}
+//Function to add marker and info on click
+function AddMarker(NewWatch){
+    var marker = new google.maps.Marker({
+        position:NewWatch.Coord,
+        map:map
 
-    //Function to add marker and info on click
-    function AddMarker(NewWatch){
-        var marker = new google.maps.Marker({
-            position:NewWatch.Coord,
-            map:map
-
-            //icon:''to chaneg marker
-        });
-        if(NewWatch.icon){
-            marker.setIcon(NewWatch.icon);
-        }
-        var infoWindow = new google.maps.InfoWindow({
-            content: NewWatch.Header
-        });
-
-        marker.addListener('click',function () {
-            infoWindow.open(map,marker);
-        })
-
+        //icon:''to chaneg marker
+    });
+    if(NewWatch.icon){
+        marker.setIcon(NewWatch.icon);
     }
-    function LoopThroughData () {
-        console.log("LoopThroughDataCalled");
-        console.log(NewsData);
-        for(var i =0;i<NewsData.locAggr.results.length;i++){
-            console.log(NewsData.locAggr.results[0].concept.location.lat);
-            NewPoint = {
-                Coord :{
-                    lat:NewsData.locAggr.results[i].concept.location.lat,
-                    lng:NewsData.locAggr.results[i].concept.location.long
-                },
-                icon:"https://icon-icons.com/icons2/510/PNG/128/ios7-location_icon-icons.com_50241.png"
+    var infoWindow = new google.maps.InfoWindow({
+        content: NewWatch.Header
+    });
 
-            }
-            AddMarker(NewPoint);
+    marker.addListener('click',function () {
+        infoWindow.open(map,marker);
+    })
+
+}
+console.log("Loaded Now:Loop Through Data");
+
+
+var LoopThroughData = function () {
+    console.log("Lopo");
+    console.log(NewsData);
+    for(var i =0;i<NewsData.locAggr.results.length;i++){
+        console.log(NewsData.locAggr.results[0].concept.location.lat);
+        NewPoint = {
+            Coord :{
+                lat:NewsData.locAggr.results[i].concept.location.lat,
+                lng:NewsData.locAggr.results[i].concept.location.long
+            },
+            icon:"https://icon-icons.com/icons2/510/PNG/128/ios7-location_icon-icons.com_50241.png"
+
         }
-
-
+        AddMarker(NewPoint);
     }
-
-
-    LoopThroughData();
 
 
 }
