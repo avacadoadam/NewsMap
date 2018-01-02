@@ -1,5 +1,6 @@
 function initMap() {
     console.log("Loaded Now:Map init");
+    geocoder = new google.maps.Geocoder();
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 0, lng: 0},
         zoom: 2,
@@ -173,6 +174,8 @@ function initMap() {
         ]
 
     });
+
+
 }
 //Function to add marker and info on click
 function AddMarker(NewWatch){
@@ -183,10 +186,10 @@ function AddMarker(NewWatch){
         //icon:''to chaneg marker
     });
     if(NewWatch.icon){
-        marker.setIcon(NewWatch.icon);
+        marker.setIcon("http://newsworld/Images/MapIcon.png");
     }
     var infoWindow = new google.maps.InfoWindow({
-        content: NewWatch.Header
+        content: NewWatch.Summary
     });
 
     marker.addListener('click',function () {
@@ -196,7 +199,9 @@ function AddMarker(NewWatch){
 }
 console.log("Loaded Now:Loop Through Data");
 
-
+//EventResultType = locArrgr
+//How will use Result Type Event to get Headers and Descripting then get lat and lng of place it took place
+/*
 var LoopThroughData = function () {
     console.log("Lopo");
     console.log(NewsData);
@@ -207,13 +212,63 @@ var LoopThroughData = function () {
                 lat:NewsData.locAggr.results[i].concept.location.lat,
                 lng:NewsData.locAggr.results[i].concept.location.long
             },
-            icon:"https://icon-icons.com/icons2/510/PNG/128/ios7-location_icon-icons.com_50241.png"
+            icon:"http://newsworld/Images/MapIcon.png"
 
         }
         AddMarker(NewPoint);
     }
+*/
+
+
+//CALL BACK FUNCTION FOR GEOCODE GOOGLE MAPS WILL SAVE TO GLOBAL VAR
+//Returning Object Doent work
+
+//Work On time and Sending Array to geocode
+
+var Goecode_Lat;
+var Geocode_lng;
+function callback(data) {
+    console.log(data["0"].geometry.location.lat());
+    console.log(data["0"].geometry.location.lng());
+    Goecode_Lat =data["0"].geometry.location.lat();
+    Geocode_lng = data["0"].geometry.location.lng();
+
+}
+
+    var LoopThroughData = function () {
+        console.log("Lopo");
+        console.log(NewsData);
+        for(var i =0;i<NewsData.events.results.length;i++){
+            //Gets lng and lat
+            var location =NewsData.events.results[i].location.country.label.eng + " , " + NewsData.events.results[i].location.label.eng;
+
+            geocoder.geocode({'address':location},function (results,status){
+                if(status === google.maps.GeocoderStatus.OK){
+                    Coords = callback(results);
+                }else{
+                    console.log("Fail");
+                }
+            });
+            console.log("gEO LAT" + Geocode_lng);
+            NewPoint = {
+                Coord :{
+                    lat:Goecode_Lat,
+                    lng:Geocode_lng
+                },
+                EventData:NewsData.events.results[i].eventDate,
+                EventTitle:NewsData.events.results[i].title.eng,
+                Summary:NewsData.events.results[i].summary.eng,
+                location:location
+
+            }
+            AddMarker(NewPoint);
+        }
 
 
 }
+
+
+
+
 
 

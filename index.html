@@ -97,8 +97,12 @@
 
 
 </div>
+<!--Goggle Maps decode-->
+<!--<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>-->
 
 <div id="map"></div>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsJYUKDFEgIp_6bee0rfJVj29qfuSslXI&callback=initMap" type="text/javascript"></script>
+
 <script>
     var NewsData;
     var JSON_CALLBACK = function (data) {
@@ -108,31 +112,8 @@
 
     }
 </script>
-<script src="http://eventregistry.org/json/event?
-query=%7B%22%24query%22%3A%7B%22
-dateStart%22%3A%222017-12-31%22%2C%22
-dateEnd%22%3A%222017-12-31%22%2C%22
-lang%22%3A%22eng%22%7D%7D&
-action=getEvents&
-resultType=locAggr
-&locAggrSortBy=date
-&eventsSortBy=date
-&eventsCount=50&
-eventsIncludeEventSummary=true&
-eventsIncludeEventArticleCounts=false&
-eventsIncludeEventConcepts=false&
-eventsIncludeEventCategories=false&
-eventsEventImageCount=1&
-eventsIncludeConceptDescription=true&
-eventsIncludeSourceDescription=true&
-eventsIncludeSourceLocation=true&
-eventsIncludeStoryLocation=true&
-eventsStoryImageCount=1
-&apiKey=6f4689b1-2f95-405a-8e3e-3430d291bc84&callback=JSON_CALLBACK">
-</script>
 <script src="LoadingMapPlusJSON.js"></script>
 <script src="Animate.js"></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsJYUKDFEgIp_6bee0rfJVj29qfuSslXI&callback=initMap" type="text/javascript"></script>
 
 </body>
 </html>
