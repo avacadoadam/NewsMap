@@ -221,48 +221,84 @@ var LoopThroughData = function () {
 
 
 //CALL BACK FUNCTION FOR GEOCODE GOOGLE MAPS WILL SAVE TO GLOBAL VAR
-//Returning Object Doent work
+//Returning Object Doent work**Becuase it Asynchronous
+//Correction call back function will be called when the JSON request is complemeted
+//Possible send geocode A array of places will be more effiecnt
+///Needs Update possible do in php or server side
+//
 
-//Work On time and Sending Array to geocode
+//--------------------------------------------------------------------------------
+// var Goecode_Lat;
+// var Geocode_lng;
+// var i = 0;
+// function callback(data) {
+//     Goecode_Lat =data["0"].geometry.location.lat();
+//     Geocode_lng = data["0"].geometry.location.lng();
+//     CreateMarker();
+// }
+//
+//     var LoopThroughData = function () {
+//         console.log("Lopo");
+//         console.log(NewsData);
+//         for (;i < NewsData.events.results.length; i++) {
+//            try {
+//                //Gets lng and lat
+//                var location = NewsData.events.results[i].location.country.label.eng + " , " + NewsData.events.results[i].location.label.eng;
+//
+//                geocoder.geocode({'address': location}, function (results, status) {
+//                    if (status === google.maps.GeocoderStatus.OK) {
+//                        callback(results);
+//                    } else {
+//                        console.log("Fail");
+//                    }
+//                });
+//            }catch (err){
+//                console.log("Error");
+//            }
+//            }
+//         }
+//
+//         function CreateMarker() {
+//             NewPoint = {
+//                 Coord :{
+//                     lat:Goecode_Lat,
+//                     lng:Geocode_lng
+//                 },
+//                 location:location
+//
+//             }
+//             console.log("index" + i);
+//             if(NewsData.events.results[i].eventDate !== null){
+//                 NewPoint.EventDate = NewsData.events.results[i].eventDate;
+//             }
+//             if(NewsData.events.results[i].title.eng !== null){
+//                 NewPoint.EventTitle=NewsData.events.results[i].title.eng;
+//             }
+//             if(NewsData.events.results[i].summary.eng !== null){
+//                 NewPoint.Summary = NewsData.events.results[i].summary.eng;
+//                 AddMarker(NewPoint);
+//             }
+//
+//         }
+//------------------------------------------------------------
+// Version 3
 
-var Goecode_Lat;
-var Geocode_lng;
-function callback(data) {
-    console.log(data["0"].geometry.location.lat());
-    console.log(data["0"].geometry.location.lng());
-    Goecode_Lat =data["0"].geometry.location.lat();
-    Geocode_lng = data["0"].geometry.location.lng();
-
-}
-
-    var LoopThroughData = function () {
-        console.log("Lopo");
-        console.log(NewsData);
-        for(var i =0;i<NewsData.events.results.length;i++){
-            //Gets lng and lat
-            var location =NewsData.events.results[i].location.country.label.eng + " , " + NewsData.events.results[i].location.label.eng;
-
-            geocoder.geocode({'address':location},function (results,status){
-                if(status === google.maps.GeocoderStatus.OK){
-                    Coords = callback(results);
-                }else{
-                    console.log("Fail");
-                }
-            });
-            console.log("gEO LAT" + Geocode_lng);
+function LoopThroughData() {
+    for(var i = 0;i<NewsData.articles.results.length;i++){
+        if(NewsData.articles.results[i].location != null){
+            console.log("Result " + i + " Has location ");
             NewPoint = {
-                Coord :{
-                    lat:Goecode_Lat,
-                    lng:Geocode_lng
+                Coord:{
+                 lat: NewsData.articles.results[i].location.lat,
+                 lng:NewsData.articles.results[i].location.long
                 },
-                EventData:NewsData.events.results[i].eventDate,
-                EventTitle:NewsData.events.results[i].title.eng,
-                Summary:NewsData.events.results[i].summary.eng,
-                location:location
-
+                Summary:NewsData.articles.results[i].body
             }
             AddMarker(NewPoint);
+
         }
+    }
+
 
 
 }

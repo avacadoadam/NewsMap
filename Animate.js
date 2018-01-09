@@ -17,6 +17,17 @@ $(document).ready(function () {
         $("#DropDownHeader").text("Select the Catergory you wish");
 
     });
+
+    $("#MenuIcon").click(function () {
+        if ("0px" !== $("#MenuList").css('left')) {
+    $("#MenuList").animate( {left: "+=50"} , 200);
+    $("#Menu").css("background-color","#ffffff");
+    }else{
+        $("#Menu").css("background-color","unset");
+        $("#MenuList").animate( {left: "-=50"} , 200);
+        }
+    });
+
     //Caterogry Selection---------------
     $("#CatergoryButton").click(function () {
         $SelectCaterogeryValue = $("#CatergorySelect option:selected").text();
@@ -62,16 +73,7 @@ $(document).ready(function () {
         console.log(Lauguage);
         script.id="JSON_Call";
         script.src =
-        "http://eventregistry.org/json/event?" +
-            "query=%7B%22%24query%22%3A%7B%" +
-            "22lang%22%3A%22eng%22%7D%7D&action=getEvents&" +
-            "resultType=events&" +
-            "eventsSortBy=date&" +
-            "eventsCount=50&" +
-            "eventsEventImageCount=1&" +
-            "eventsStoryImageCount=1&" +
-            "apiKey=6f4689b1-2f95-405a-8e3e-3430d291bc84"+
-            "&callback=JSON_CALLBACK";
+       "http://eventregistry.org/json/article?query=%7B%22%24query%22%3A%7B%22lang%22%3A%22eng%22%7D%7D&action=getArticles&resultType=articles&articlesSortBy=date&articlesCount=100&articlesArticleBodyLen=-1&articlesIncludeArticleLocation=true&articlesIncludeLocationGeoLocation=true&apiKey=6f4689b1-2f95-405a-8e3e-3430d291bc84&callback=JSON_CALLBACK";
 
         document.head.appendChild(script);
         document.getElementById("JSON_Call").addEventListener("load",function (ev) {

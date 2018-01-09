@@ -54,6 +54,28 @@
     #Catergory_Wrap{
         display: none;
     }
+    #Menu{
+        z-index: 2;
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        left: 0;
+        /*height: 100vh;*/
+    }
+
+    #MenuList{
+        position: absolute;
+        height: 100%;
+
+        width: 50px;
+        left: -50px;
+        margin-top: 50px;
+    }
+
+    #MenuList li{
+
+        margin-top: 50px;
+    }
 
 
 </style>
@@ -61,7 +83,17 @@
 
 
 
-
+<div id="Menu">
+    <img id="MenuIcon" src="/Images/56763.png" >
+    <div id="MenuList">
+        <ol>
+            <li>Menu1</li>
+            <li>Menu2</li>
+            <li>Menu3</li>
+            <li>Menu4</li>
+        </ol>
+    </div>
+</div>
 
 
 <div id="DropDown">
